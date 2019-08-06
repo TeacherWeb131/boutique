@@ -3,7 +3,19 @@
 
 require "vendor/autoload.php";
 require "utilities/config.php";
+require "utilities/Connexion.php";
+
+require "models/Product.php";
+require "models/Order.php";
+require "models/OrderDetails.php";
+require "models/User.php";
+
+require "controllers/Controller.php";
 require "controllers/DefaultController.php";
+require "controllers/HomeController.php";
+require "controllers/ProductController.php";
+require "controllers/OrderController.php";
+require "controllers/OrderDetailsController.php";
 require "controllers/UserController.php";
 // ON VA FAIRE UN PROJET MVC : Modele Vue Controller
 
@@ -16,7 +28,7 @@ require "controllers/UserController.php";
 
 // index.php ETANT NOTRE ROUTER DISPATCHER
 // produit : instancie le controller
-// afficher : appelle (executer) la methode 'afficher' du controller
+// afficher : appelle (execute) la methode 'afficher' du controller
 // 45 : fourni un paramètre (exemple: le slug)
 
 //POUR VISUALISER L'URI (url) CONTENU DANS LA VARIABLE GLOBAL $GLOBAL
@@ -61,14 +73,9 @@ if (empty($params[1]) || !isset($params[1]))
         } else {
             $parameter = $params[3];
         }
-        $instance->$methode($parameter = null);
+        $instance->$methode($parameter);
     }
 }
-
-
-
-
-
 
 // 5. instancier le controlleur (produit)
 

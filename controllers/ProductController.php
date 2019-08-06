@@ -1,11 +1,22 @@
 <?php
 
-class ProductController
+class ProductController extends Controller
 {
-    public function add()
+    // affiche la liste des produits
+    //monsite.fr/product ou monsite.fr/product
+    public function index()
     {
-        //Récupération des données du formulaire
-        $product = new Product($_POST['name'], $_POST['description'], $_POST['price'], $_POST['quantity'], $_POST['picture']);
-        $product->save();
+        
+        $products = Product::getAllProducts();
+
+        require 'views/product/list_product.php';
+    }
+
+    //monsite.fr/product/show/12
+    public function show($id)
+    {
+        $product = Product::getProductById($id);
+
+        require "views/product/show_product.php";
     }
 }

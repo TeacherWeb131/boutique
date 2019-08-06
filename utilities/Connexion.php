@@ -2,12 +2,17 @@
 
 class Connexion
 {
+
+    private $cnx;
+
+    
     public function __construct()
     {
         try {
-            $cnx = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
+            $this->cnx = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
         } catch (PDOException $e) {
             echo $e->getMessage();
+            die();
         }
     }
 
@@ -16,8 +21,8 @@ class Connexion
         // Methode 1 : écrase le contenu de $cnx
         $this->cnx = null; 
 
-        // Methode 1 : écrase le contenu de $cnx
-        // unset($this->cnx) écrase complètement la variable $cnx 
+        // Methode 2 : écrase complètement la variable $cnx
+        // unset($this->cnx) 
     }
 
     // Fonction de requete SQL préparée
@@ -44,11 +49,9 @@ class Connexion
     // $execute_params = [] à la fin des paramètres et un tableau vide au cas ou on ne lui passe pas de parametre
     public function getMany($request, $class, $execute_params = [])
     {
+        
         $stmt = $this->cnx->prepare($request);
         $stmt->execute($execute_params);
         return $stmt->fetchAll(PDO::FETCH_CLASS, $class);
     }
-
-    // $cnx->setFetchMode
-    // FETCH_CLASS -> nom de la classe
 }

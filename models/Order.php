@@ -10,14 +10,14 @@ class Order
     private $total_ttc;
     private $user_id;
 
-    public function __construct($total_ht, $total_ttc, $user_id)
-    {
-        $this->total_ht = $total_ht;
-        $this->total_ttc = $total_ttc;
-        $this->user_id = $user_id;
-        $this->created_at = date("Y-m-d H:i:s");
-        // (new DateTime("now"))->format("Y-m-d H:i:s")
-    }
+    // public function __construct($total_ht, $total_ttc, $user_id)
+    // {
+    //     $this->total_ht = $total_ht;
+    //     $this->total_ttc = $total_ttc;
+    //     $this->user_id = $user_id;
+    //     $this->created_at = date("Y-m-d H:i:s");
+    //     // (new DateTime("now"))->format("Y-m-d H:i:s")
+    // }
 
     /**
      * Get the value of id
@@ -140,7 +140,7 @@ class Order
         $id =  $cnx->querySQL(
             "INSERT INTO order (created_at, total_ht, total_ttc, user_id) VALUES (?,?,?,?)",
             [
-                $this->created_at,
+                date("Y-m-d H:i:s"),
                 $this->total_ht,
                 $this->total_ttc,
                 $this->user_id

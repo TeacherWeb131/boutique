@@ -10,15 +10,15 @@ class Product
     private $quantity;
     private $picture;
 
-    public function __contruct($name, $description, $price, $quantity, $picture)
-    {
-        $this->name = $name;
-        $this->description = $description;
-        $this->price = $price;
-        $this->quantity = $quantity;
-        $this->picture = $picture;
+    // public function __contruct($name, $description, $price, $quantity, $picture)
+    // {
+    //     $this->name = $name;
+    //     $this->description = $description;
+    //     $this->price = $price;
+    //     $this->quantity = $quantity;
+    //     $this->picture = $picture;
 
-    }
+    // }
     /**
      * Get the value of id
      */ 
@@ -150,7 +150,7 @@ class Product
     }
 
     // méthode pour la récupération d'un seul produit
-    public function getProductById($id)
+    public static function getProductById($id)
     {
         $cnx = new Connexion();
         $product = $cnx->getOne("SELECT * FROM product WHERE id=?", [$id], get_class($this));
@@ -159,10 +159,13 @@ class Product
 
 
     // méthode pour la récupération de la liste de tous les produits
-    public function getAllProducts()
+    public static function getAllProducts()
     {
+        
         $cnx = new Connexion();
+        
         $products = $cnx->getMany("SELECT * FROM product", "Product");
+      
         return $products;
     }
 }

@@ -10,14 +10,14 @@ class OrderDetails
     private $order_id;
     private $product_id;
 
-    public function __construct($quantity_ordered, $price_each, $order_id, $product_id)
-    {
-        $this->quantity_ordered = $quantity_ordered;
-        $this->price_each = $price_each;
-        $this->total_price = $quantity_ordered * $price_each;
-        $this->order_id = $order_id;
-        $this->product_id = $product_id;
-    }
+    // public function __construct($quantity_ordered, $price_each, $order_id, $product_id)
+    // {
+    //     $this->quantity_ordered = $quantity_ordered;
+    //     $this->price_each = $price_each;
+    //     $this->total_price = $quantity_ordered * $price_each;
+    //     $this->order_id = $order_id;
+    //     $this->product_id = $product_id;
+    // }
 
     /**
      * Get the value of id
@@ -154,5 +154,4 @@ class OrderDetails
         );
         return $result;
     }
-
 }

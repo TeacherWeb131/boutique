@@ -1,7 +1,8 @@
 <?php
 
-class DefaultController
+class DefaultController extends Controller
 {
+    // La page d'accueil principale
     public function index()
     {
         //dd($_SERVER);

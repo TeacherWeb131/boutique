@@ -13,15 +13,15 @@ class User
     private $password;
     private $admin;
 
-    public function __construct($first_name, $last_name, $email, $password, $admin = 0)
-    {
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->email = $email;
-        $this->created_at = date("Y-m-d H:i:s");
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
-        $this->admin = $admin;
-    }
+    // public function __construct($first_name, $last_name, $email, $password, $admin = 0)
+    // {
+    //     $this->first_name = $first_name;
+    //     $this->last_name = $last_name;
+    //     $this->email = $email;
+    //     $this->created_at = date("Y-m-d H:i:s");
+    //     $this->password = password_hash($password, PASSWORD_BCRYPT);
+    //     $this->admin = $admin;
+    // }
     
     /**
      * Get the value of id
@@ -151,30 +151,52 @@ class User
 
         return $this;
     }
+
+    public function isValid()
+    {
+        // 1 il a bien rempli tous les champs
+
+
+        // 2 l'adresse mail n'existe pas dans notre BDD
+
+
+        // permet de valider le contenu récupérer du formulaire
+
+
+        // son retour est boolean
+        return true;
+    }
     
     // Methode pour insérer un User (un utilisateur)
     public function save()
     {
         $cnx = new Connexion();
         $cnx->querySQL(
-            "INSERT INTO user (first_name, last_name, email,created_at, password, admin) VALUES (?,?,?,?,?,?)",
+            "INSERT INTO user (first_name, last_name, email, created_at, password, admin) VALUES (?,?,?,?,?,?)",
             [
                 $this->first_name,
                 $this->last_name,
                 $this->email,
-                $this->created_at,
-                $this->password,
+                date("Y-m-d H:i:s"),
+                password-hash($this->password, PASSWORD_BCRYPT),
                 $this->admin
 
             ]
         );
     }
 
+    public static function getUserByEmail($email)
+    {
+        $cnx = new Connexion();
+        $user = $cnx->getOne("SELECT * FROM user WHERE email = ?", [$email], "User");
+        return $user;
+    }
+
     // méthode pour la récupération d'un seul User (une seule utilisateur)
     public function getUserById($id)
     {
         $cnx = new Connexion();
-        $user = $cnx->getOne("SELECT * FROM user WHERE id=?", $id, get_class($this));
+        $user = $cnx->getOne("SELECT * FROM user WHERE id=?", $id, get_class($this));// "User" au lieu de get_class($this)
         return $user;
     }
 
